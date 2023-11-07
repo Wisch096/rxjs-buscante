@@ -20,8 +20,7 @@ export class ListaLivrosComponent implements OnDestroy {
       next: retornoAPI => console.log(retornoAPI),
       error: erro => console.log(erro),
       complete: () => console.log('Observable completado')
-    }
-    )
+    });
   }
   
   ngOnDestroy(): void {
