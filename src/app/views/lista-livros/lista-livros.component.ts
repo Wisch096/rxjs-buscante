@@ -11,7 +11,7 @@ import { LivroService } from 'src/app/service/livro.service';
 })
 export class ListaLivrosComponent implements OnDestroy {
 
-  listaLivros: [];
+  listaLivros: Livro[];
   campoBusca: string = ''
   subscription: Subscription
   livro: Livro
@@ -21,9 +21,10 @@ export class ListaLivrosComponent implements OnDestroy {
   
   buscarLivros() {
     this.subscription = this.service.buscar(this.campoBusca).subscribe({
-      next: retornoAPI => console.log(retornoAPI),
+      next: (items) => {
+        this.listaLivros = this.livrosResultadoParaLivros(items);
+      },
       error: erro => console.log(erro),
-      complete: () => console.log('Observable completado')
     });
   }
   
