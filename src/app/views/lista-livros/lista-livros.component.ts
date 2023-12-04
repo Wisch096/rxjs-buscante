@@ -20,10 +20,12 @@ export class ListaLivrosComponent implements OnDestroy {
 
   constructor(private service: LivroService) { }
 
-  livrosEncontrados$ = this.campoBusca.valueChanges.pipe(
-    switchMap((valorDigitado) => this.service.buscar(valorDigitado)), map((items) => this.listaLivros = this.livrosResultadoParaLivros(items))
-  )
-  
+  livrosEncontrados$ = this.campoBusca.valueChanges
+    .pipe(
+      switchMap((valorDigitado) => this.service.buscar(valorDigitado)),
+      map((items) => this.listaLivros = this.livrosResultadoParaLivros(items))
+    )
+
   livrosResultadoParaLivros(items: Item[]): LivroVolumeInfo[] {
     return items.map(item => {
       return new LivroVolumeInfo(item)
