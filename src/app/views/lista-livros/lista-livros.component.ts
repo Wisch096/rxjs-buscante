@@ -10,30 +10,22 @@ import { LivroService } from 'src/app/service/livro.service';
   templateUrl: './lista-livros.component.html',
   styleUrls: ['./lista-livros.component.css']
 })
-export class ListaLivrosComponent implements OnDestroy {
+export class ListaLivrosComponent {
 
-  listaLivros: Livro[];
   campoBusca = new FormControl()
-  subscription: Subscription
-  livro: Livro
-
 
   constructor(private service: LivroService) { }
 
   livrosEncontrados$ = this.campoBusca.valueChanges
     .pipe(
       switchMap((valorDigitado) => this.service.buscar(valorDigitado)),
-      map((items) => this.listaLivros = this.livrosResultadoParaLivros(items))
+      map((items) => this.livrosResultadoParaLivros(items))
     )
 
   livrosResultadoParaLivros(items: Item[]): LivroVolumeInfo[] {
     return items.map(item => {
       return new LivroVolumeInfo(item)
     })
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }
