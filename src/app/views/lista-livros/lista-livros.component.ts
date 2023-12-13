@@ -28,6 +28,7 @@ export class ListaLivrosComponent {
       distinctUntilChanged(),
       switchMap((valorDigitado) => this.service.buscar(valorDigitado)),
       tap((retornoAPI) => console.log(retornoAPI)),
+      map(resultado => resultado.items ?? []),
       map((items) => this.livrosResultadoParaLivros(items)),
       catchError(erro => {
         console.log(erro)
